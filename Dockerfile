@@ -24,4 +24,6 @@ RUN rm -rf /tmp/*
 
 VOLUME /conf
 
-CMD /opt/lumberjack/bin/lumberjack -config /conf/logstash-forwarder.json -from-beginning=true
+CMD /opt/lumberjack/bin/lumberjack -config /conf/logstash-forwarder.json
+
+# To pick up historical logs, run the previous command with the flag -from-beginning=true. However, if this flag is present and existing logs have already been indexed, they will be duplicated.
