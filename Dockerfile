@@ -9,7 +9,7 @@ RUN apt-get update
 RUN apt-get install -y wget git golang ruby ruby-dev build-essential && apt-get clean
 
 # clone logstash-forwarder
-RUN git clone git://github.com/elasticsearch/logstash-forwarder.git /tmp/logstash-forwarder
+RUN git clone https://github.com/elasticsearch/logstash-forwarder.git /tmp/logstash-forwarder
 RUN cd /tmp/logstash-forwarder && git checkout v0.3.1 && go build
 
 # Install fpm
