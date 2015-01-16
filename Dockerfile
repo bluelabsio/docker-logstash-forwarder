@@ -10,7 +10,7 @@ RUN apt-get install -y wget git golang ruby ruby-dev build-essential && apt-get 
 
 # clone logstash-forwarder
 RUN git clone https://github.com/elasticsearch/logstash-forwarder.git /tmp/logstash-forwarder
-RUN cd /tmp/logstash-forwarder && git checkout v0.3.1 && go build
+RUN cd /tmp/logstash-forwarder && git checkout master && go build
 
 # Install fpm
 RUN gem install fpm
@@ -24,9 +24,9 @@ RUN rm -rf /tmp/*
 
 VOLUME /conf
 
-# We set a workdir, because state is tracked by writing .lumberjack.new and renaming to .lumberjack
+# We set a workdir, because state is tracked by writing .logstash-forwarder.new and renaming to .logstash-forwarder
 WORKDIR /conf
 
-CMD /opt/lumberjack/bin/lumberjack -config /conf/logstash-forwarder.json
+CMD /opt/logstash-forwarder/bin/logstash-forwarder -quiet -config /conf/logstash-forwarder.json
 
 # To pick up historical logs, run the previous command with the flag -from-beginning=true. However, if this flag is present and existing logs have already been indexed, they will be duplicated.
