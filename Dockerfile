@@ -1,4 +1,4 @@
-FROM golang:1.3
+FROM ubuntu:14.04
 MAINTAINER Chelsea Zhang <chelsea@bluelabs.com>
 
 # Based on https://github.com/denibertovic/logstash-forwarder-dockerfile/blob/master/Dockerfile
@@ -6,7 +6,7 @@ MAINTAINER Chelsea Zhang <chelsea@bluelabs.com>
 RUN apt-get update
 
 # install deps
-RUN apt-get install -y wget git ruby ruby-dev build-essential && apt-get clean
+RUN apt-get install -y wget git golang ruby ruby-dev build-essential && apt-get clean
 
 # clone logstash-forwarder
 RUN git clone https://github.com/elasticsearch/logstash-forwarder.git /tmp/logstash-forwarder
