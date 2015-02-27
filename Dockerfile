@@ -6,17 +6,14 @@ MAINTAINER Chelsea Zhang <chelsea@bluelabs.com>
 RUN apt-get update
 
 # install deps
-RUN apt-get install -y wget git ruby ruby-dev build-essential && apt-get clean
+RUN apt-get install -y wget git ruby ruby-dev build-essential && apt-get clean && gem install bundler
 
 # clone logstash-forwarder
 RUN git clone https://github.com/elasticsearch/logstash-forwarder.git /tmp/logstash-forwarder
 RUN cd /tmp/logstash-forwarder && git checkout master && go build
 
-# Install fpm
-RUN gem install fpm
-
 # Build deb
-RUN cd /tmp/logstash-forwarder && make deb
+RUN cd /tmp/logstash-forwarder && bundle install && make deb
 RUN dpkg -i /tmp/logstash-forwarder/*.deb
 
 # Cleanup
